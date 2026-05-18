@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lian Matteo Advocacia | Defesa Criminal Estratégica</title>
+  <meta name="description" content="Defesa criminal estratégica e imediata. Atendimento sigiloso 24h para proteger sua liberdade, sua imagem e seus direitos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       TOKENS & VARIABLES
+    ═══════════════════════════════════════════ */
+    :root {
+      --bg:            #090909;
+      --bg-2:          #0F0F0F;
+      --bg-card:       #141414;
+      --bg-card-hover: #1C1C1C;
+      --gold:          #B8973A;
+      --gold-light:    #D4AF60;
+      --gold-dim:      rgba(184,151,58,0.12);
+      --gold-glow:     rgba(184,151,58,0.06);
+      --white:         #F5F5F0;
+      --white-70:      rgba(245,245,240,0.70);
+      --white-40:      rgba(245,245,240,0.40);
+      --white-20:      rgba(245,245,240,0.20);
+      --gray:          #80807A;
+      --border:        rgba(255,255,255,0.055);
+      --border-gold:   rgba(184,151,58,0.28);
+      --green-wa:      #25D366;
+      --green-wa-dark: #1DAA53;
+      --ff-display:    'Cormorant Garamond', Georgia, serif;
+      --ff-body:       'Outfit', system-ui, sans-serif;
+      --radius:        2px;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.028'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    img { display:block; max-width:100%; }
+    a { color:inherit; }
+    button { cursor:pointer; border:none; background:none; }
+
+    /* ═══════════════════════════════════════════
+       UTILITIES
+    ═══════════════════════════════════════════ */
+    .u-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .u-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1.4rem;
+    }
+    .u-eyebrow__line {
+      width: 32px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .u-eyebrow__text {
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .u-section-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 3.8vw, 3.1rem);
+      font-weight: 300;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+    .u-section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .u-section-sub {
+      color: var(--white-70);
+      font-size: 0.92rem;
+      line-height: 1.75;
+      max-width: 460px;
+    }
+
+    /* ═══════════════════════════════════════════
+       REVEAL ANIMATIONS
+    ═══════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.72s cubic-bezier(.22,.68,0,1.2),
+                  transform 0.72s cubic-bezier(.22,.68,0,1.2);
+    }
+    .reveal.is-visible { opacity:1; transform:translateY(0); }
+    .reveal[data-delay="1"] { transition-delay: 0.10s; }
+    .reveal[data-delay="2"] { transition-delay: 0.20s; }
+    .reveal[data-delay="3"] { transition-delay: 0.30s; }
+    .reveal[data-delay="4"] { transition-delay: 0.40s; }
+    .reveal[data-delay="5"] { transition-delay: 0.50s; }
+    .reveal[data-delay="6"] { transition-delay: 0.60s; }
+
+    /* ═══════════════════════════════════════════
+       KEYFRAMES
+    ═══════════════════════════════════════════ */
+    @keyframes hero-in     { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes line-grow   { from{width:0} to{width:40px} }
+    @keyframes pulse-green { 0%,100%{box-shadow:0 4px 28px rgba(37,211,102,.22)} 50%{box-shadow:0 8px 55px rgba(37,211,102,.42),0 0 90px rgba(37,211,102,.12)} }
+    @keyframes float-y     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    @keyframes shimmer     { 0%{background-position:200% center} 100%{background-position:-200% center} }
+    @keyframes fade-in     { from{opacity:0} to{opacity:1} }
+
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 1.75rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: padding .4s ease, background .4s ease, border-color .4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.is-scrolled {
+      background: rgba(9,9,9,.92);
+      backdrop-filter: blur(24px) saturate(1.4);
+      -webkit-backdrop-filter: blur(24px) saturate(1.4);
+      border-color: var(--border);
+      padding: 1.1rem 3rem;
+    }
+
+    .nav__logo {
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: var(--white);
+      animation: hero-in .7s ease both .1s;
+    }
+    .nav__logo b { color: var(--gold); font-weight: 400; }
+
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: hero-in .7s ease both .2s;
+    }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1.5rem;
+      background: var(--green-wa);
+      color: #fff;
+      font-family: var(--ff-body);
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      border-radius: var(--radius);
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-wa:hover {
+      background: var(--green-wa-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(37,211,102,.3);
+    }
+    .btn-wa svg { flex-shrink:0; }
+
+    /* ═══════════════════════════════════════════
+       ① HERO
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Cinematic dark gradient backdrop */
+    .hero__backdrop {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, #0A0908 0%, #12110E 38%, #0A0908 100%);
+    }
+
+    /* Atmospheric warm glow — like a single desk lamp */
+    .hero__atmosphere {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 70% at 72% 48%, rgba(184,151,58,.055) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(60,40,10,.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    /* Vertical gold rule */
+    .hero__rule {
+      position: absolute;
+      right: clamp(3rem, 8vw, 8rem);
+      top: 20%; bottom: 20%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(184,151,58,.35), transparent);
+      animation: fade-in 1.4s ease both 1s;
+    }
+
+    /* Fine horizontal line across hero */
+    .hero__h-rule {
+      position: absolute;
+      left: 0; right: 0;
+      bottom: 11%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,151,58,.12) 30%, rgba(184,151,58,.12) 70%, transparent);
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 9rem 3rem 7rem;
+      width: 100%;
+    }
+
+    .hero__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 2.2rem;
+      opacity: 0;
+      animation: hero-in .7s ease forwards .5s;
+    }
+    .hero__tag-line {
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      animation: line-grow .6s ease forwards .9s;
+    }
+    .hero__tag-text {
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero__headline {
+      font-family: var(--ff-display);
+      font-size: clamp(3.2rem, 7.5vw, 7rem);
+      font-weight: 300;
+      line-height: 1.02;
+      letter-spacing: -0.015em;
+      max-width: 720px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: hero-in .8s cubic-bezier(.22,.68,0,1.2) forwards .6s;
+    }
+    .hero__headline em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite 1.4s;
+    }
+
+    .hero__sub {
+      font-size: clamp(.92rem, 1.3vw, 1.05rem);
+      color: var(--white-70);
+      max-width: 440px;
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: hero-in .7s ease forwards .8s;
+    }
+
+    .hero__cta-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.85rem;
+      opacity: 0;
+      animation: hero-in .7s ease forwards 1s;
+    }
+
+    .btn-wa--hero {
+      padding: 1.1rem 2.6rem;
+      font-size: 0.98rem;
+      font-weight: 600;
+      animation: pulse-green 3s ease-in-out infinite 1.5s;
+      border-radius: var(--radius);
+    }
+
+    .hero__micro {
+      font-size: 0.74rem;
+      color: var(--white-40);
+      letter-spacing: 0.09em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero__micro::before {
+      content: '';
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: .55;
+    }
+
+    /* Floating credential badge */
+    .hero__badge {
+      position: absolute;
+      right: clamp(3rem, 10vw, 10rem);
+      bottom: 18%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      opacity: 0;
+      animation: hero-in .8s ease forwards 1.1s;
+    }
+    .hero__stat {
+      text-align: right;
+    }
+    .hero__stat-num {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero__stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white-40);
+      margin-top: 0.2rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       ② PROBLEMS
+    ═══════════════════════════════════════════ */
+    .problems {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 6rem 0;
+    }
+
+    .problems__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .problems__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .prob-card {
+      background: var(--bg-card);
+      padding: 2.2rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .32s ease, transform .32s ease;
+      cursor: default;
+    }
+    .prob-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .4s cubic-bezier(.22,.68,0,1.2);
+    }
+    .prob-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 50%, var(--gold-dim) 0%, transparent 65%);
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .prob-card:hover { background: var(--bg-card-hover); }
+    .prob-card:hover::before { transform: scaleY(1); }
+    .prob-card:hover::after { opacity: 1; }
+
+    .prob-card__icon {
+      width: 38px; height: 38px;
+      color: var(--gold);
+      opacity: .75;
+      margin-bottom: 1.3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .prob-card__title {
+      font-family: var(--ff-display);
+      font-size: 1.12rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .prob-card__desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════════════
+       ③ EMOTIONAL IMPACT
+    ═══════════════════════════════════════════ */
+    .impact {
+      position: relative;
+      padding: 9rem 3rem;
+      background: #070707;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .impact__glow-l,
+    .impact__glow-r {
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      pointer-events: none;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .impact__glow-l {
+      left: -180px;
+      background: radial-gradient(circle, rgba(184,151,58,.06) 0%, transparent 65%);
+    }
+    .impact__glow-r {
+      right: -180px;
+      background: radial-gradient(circle, rgba(184,151,58,.04) 0%, transparent 65%);
+    }
+
+    .impact__deco {
+      position: absolute;
+      font-family: var(--ff-display);
+      font-size: 22rem;
+      font-weight: 700;
+      color: rgba(184,151,58,.018);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -.06em;
+    }
+
+    .impact__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .impact__quote {
+      font-family: var(--ff-display);
+      font-size: clamp(1.9rem, 4vw, 3.6rem);
+      font-weight: 300;
+      line-height: 1.22;
+      font-style: italic;
+      letter-spacing: -.01em;
+      margin-bottom: 2.5rem;
+    }
+    .impact__quote strong {
+      font-style: normal;
+      font-weight: 400;
+      color: var(--gold);
+    }
+
+    .impact__divider {
+      width: 56px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 0 auto 2rem;
+    }
+
+    .impact__sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--white-40);
+    }
+
+    /* ═══════════════════════════════════════════
+       ④ HOW IT WORKS
+    ═══════════════════════════════════════════ */
+    .how {
+      padding: 6.5rem 0;
+      background: var(--bg);
+    }
+
+    .how__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 4.5rem;
+    }
+
+    .how__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      position: relative;
+    }
+
+    /* Connecting line */
+    .how__steps::before {
+      content: '';
+      position: absolute;
+      top: 2.6rem;
+      left: calc(12.5% + 1px);
+      right: calc(12.5% + 1px);
+      height: 1px;
+      background: linear-gradient(to right, var(--border-gold), var(--border-gold));
+      z-index: 0;
+    }
+
+    .step {
+      padding: 0 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step__diamond-wrap {
+      width: 5.2rem; height: 5.2rem;
+      margin: 0 auto 2rem;
+      position: relative;
+    }
+    .step__diamond {
+      position: absolute;
+      inset: 8px;
+      border: 1px solid var(--border-gold);
+      background: var(--bg-card);
+      transform: rotate(45deg);
+      transition: background .3s, border-color .3s;
+    }
+    .step:hover .step__diamond {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+    }
+    .step__num {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-size: 1.55rem;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    .step__title {
+      font-family: var(--ff-display);
+      font-size: 1.08rem;
+      font-weight: 400;
+      margin-bottom: 0.6rem;
+    }
+    .step__desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════════
+       ⑤ DIFERENCIAIS
+    ═══════════════════════════════════════════ */
+    .diff {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      padding: 6.5rem 0;
+    }
+
+    .diff__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .diff__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .diff-card {
+      background: var(--bg-card);
+      padding: 2.5rem 2.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .3s;
+    }
+    .diff-card__glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% -20%, var(--gold-glow) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity .4s;
+    }
+    .diff-card:hover { background: var(--bg-card-hover); }
+    .diff-card:hover .diff-card__glow { opacity: 1; }
+
+    .diff-card__icon {
+      width: 34px; height: 34px;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    .diff-card__title {
+      font-family: var(--ff-display);
+      font-size: 1.12rem;
+      font-weight: 400;
+      margin-bottom: 0.55rem;
+      position: relative;
+      z-index: 1;
+    }
+    .diff-card__desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.72;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ═══════════════════════════════════════════
+       ⑥ SOCIAL PROOF
+    ═══════════════════════════════════════════ */
+    .proof {
+      background: var(--bg);
+      padding: 6.5rem 0;
+    }
+
+    .proof__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .proof__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 4rem;
+    }
+
+    .testi {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 2.2rem;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .testi:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.35);
+    }
+
+    .testi__stars {
+      display: flex;
+      gap: 3px;
+      color: var(--gold);
+      font-size: 0.82rem;
+      margin-bottom: 1.3rem;
+    }
+
+    .testi__text {
+      font-family: var(--ff-display);
+      font-style: italic;
+      font-size: 0.98rem;
+      line-height: 1.8;
+      color: var(--white-70);
+      margin-bottom: 1.75rem;
+    }
+
+    .testi__author {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+    }
+    .testi__dash {
+      font-size: 0.78rem;
+      color: var(--gold);
+      opacity: .6;
+    }
+    .testi__name {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--white-40);
+      letter-spacing: 0.04em;
+    }
+    .testi__sep {
+      font-size: 0.72rem;
+      color: var(--gray);
+      opacity: .4;
+    }
+    .testi__city {
+      font-size: 0.72rem;
+      color: var(--gray);
+      opacity: .55;
+    }
+
+    /* Metrics strip */
+    .proof__metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border);
+      border-top: 1px solid var(--border-gold);
+      overflow: hidden;
+    }
+    .metric {
+      padding: 2rem;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .metric:last-child { border-right: none; }
+    .metric__num {
+      font-family: var(--ff-display);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .metric__label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* ═══════════════════════════════════════════
+       ⑦ CTA FINAL
+    ═══════════════════════════════════════════ */
+    .cta-final {
+      position: relative;
+      padding: 10rem 3rem;
+      background: #060605;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .cta-final__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 100%, rgba(184,151,58,.075) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 50% 0%, rgba(184,151,58,.025) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Vertical gold stem from bottom */
+    .cta-final__stem {
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 1px; height: 90px;
+      background: linear-gradient(to top, transparent, rgba(184,151,58,.4));
+      pointer-events: none;
+    }
+
+    .cta-final__inner {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .cta-final__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-final__headline {
+      font-family: var(--ff-display);
+      font-size: clamp(2.1rem, 4.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.18;
+      letter-spacing: -.015em;
+      margin-bottom: 1.4rem;
+    }
+    .cta-final__headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .cta-final__sub {
+      color: var(--white-70);
+      font-size: 0.97rem;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+    }
+
+    .btn-wa--cta {
+      padding: 1.25rem 3rem;
+      font-size: 1rem;
+      font-weight: 600;
+      animation: pulse-green 3s ease-in-out infinite;
+    }
+
+    .cta-final__micro {
+      margin-top: 1.5rem;
+      font-size: 0.73rem;
+      color: var(--white-40);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* ═══════════════════════════════════════════
+       ⑧ FOOTER
+    ═══════════════════════════════════════════ */
+    .footer {
+      background: #070706;
+      border-top: 1px solid var(--border);
+      padding: 0;
+    }
+
+    .footer__main {
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr;
+      gap: 3rem;
+      padding: 4rem 3rem;
+      max-width: 1180px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer__brand-name {
+      font-family: var(--ff-display);
+      font-size: 1.45rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      color: var(--white);
+    }
+    .footer__brand-name b { color: var(--gold); font-weight: 400; }
+
+    .footer__brand-desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+      line-height: 1.75;
+      max-width: 260px;
+    }
+
+    .footer__col-title {
+      font-size: 0.66rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer__links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .footer__links a {
+      font-size: 0.82rem;
+      color: var(--gray);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color .2s;
+    }
+    .footer__links a:hover { color: var(--white); }
+
+    .footer__bottom {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 1.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .footer__copy {
+      font-size: 0.72rem;
+      color: var(--gray);
+      opacity: .5;
+    }
+    .footer__oab {
+      font-size: 0.68rem;
+      color: var(--gray);
+      opacity: .35;
+      font-style: italic;
+      text-align: right;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .u-inner { padding: 0 2rem; }
+      .nav { padding: 1.5rem 2rem; }
+      .nav.is-scrolled { padding: 1rem 2rem; }
+      .hero__inner { padding: 8rem 2rem 6rem; }
+      .hero__badge { display: none; }
+      .hero__rule { display: none; }
+      .problems__grid { grid-template-columns: repeat(2, 1fr); }
+      .how__steps { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1rem; }
+      .how__steps::before { display: none; }
+      .diff__grid { grid-template-columns: repeat(2, 1fr); }
+      .proof__grid { grid-template-columns: repeat(2, 1fr); }
+      .proof__metrics { grid-template-columns: repeat(2, 1fr); }
+      .metric:nth-child(2) { border-right: none; }
+      .metric:nth-child(3) { border-top: 1px solid var(--border); }
+      .metric:nth-child(4) { border-top: 1px solid var(--border); }
+      .footer__main { grid-template-columns: 1fr 1fr; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+      .footer__oab { text-align: center; }
+      .problems__header,
+      .how__header,
+      .diff__header,
+      .proof__header { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 680px) {
+      .nav__logo { font-size: 1rem; }
+      .nav .btn-wa .btn-wa__txt { display: none; }
+      .hero__headline { font-size: clamp(2.8rem, 11vw, 4.5rem); }
+      .problems__grid { grid-template-columns: 1fr; }
+      .how__steps { grid-template-columns: 1fr; }
+      .diff__grid { grid-template-columns: 1fr; }
+      .proof__grid { grid-template-columns: 1fr; }
+      .proof__metrics { grid-template-columns: repeat(2, 1fr); }
+      .footer__main { grid-template-columns: 1fr; gap: 2rem; }
+      .impact { padding: 6rem 2rem; }
+      .cta-final { padding: 7rem 2rem; }
+      .impact__deco { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       NAV
+  ══════════════════════════════════════ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Menu principal">
+    <a href="#hero" class="nav__logo">Lian Matteo<b>.</b></a>
+    <div class="nav__actions">
+      <a href="https://wa.me/554188760591" class="btn-wa" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.104 1.513 5.836L0 24l6.335-1.49C8.01 23.469 9.97 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.666-.513-5.194-1.41l-.37-.22-3.858.907.97-3.764-.242-.383A9.934 9.934 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        </svg>
+        <span class="btn-wa__txt">Falar com Advogado</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       ① HERO
+  ══════════════════════════════════════ -->
+  <section class="hero" id="hero" aria-label="Seção principal">
+    <div class="hero__backdrop" aria-hidden="true"></div>
+    <div class="hero__atmosphere" aria-hidden="true"></div>
+    <div class="hero__rule" aria-hidden="true"></div>
+    <div class="hero__h-rule" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <div class="hero__tag" aria-hidden="true">
+        <div class="hero__tag-line"></div>
+        <span class="hero__tag-text">Advocacia Criminal Estratégica</span>
+      </div>
+
+      <h1 class="hero__headline">
+        Você Não Precisa<br>Enfrentar Isso<br><em>Sozinho.</em>
+      </h1>
+
+      <p class="hero__sub">
+        Atendimento criminal estratégico e imediato para proteger sua liberdade, sua imagem e seus direitos — quando o tempo é o que mais importa.
+      </p>
+
+      <div class="hero__cta-wrap">
+        <a href="https://wa.me/554188760591" class="btn-wa btn-wa--hero" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.104 1.513 5.836L0 24l6.335-1.49C8.01 23.469 9.97 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.666-.513-5.194-1.41l-.37-.22-3.858.907.97-3.764-.242-.383A9.934 9.934 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+          </svg>
+          Falar com um Advogado Agora
+        </a>
+        <span class="hero__micro">Atendimento rápido, discreto e sigiloso.</span>
+      </div>
+    </div>
+
+    <!-- Floating stats -->
+    <div class="hero__badge" aria-hidden="true">
+      <div class="hero__stat">
+        <div class="hero__stat-num">24h</div>
+        <div class="hero__stat-label">Disponibilidade</div>
+      </div>
+      <div class="hero__stat">
+        <div class="hero__stat-num">100%</div>
+        <div class="hero__stat-label">Sigilo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ② PROBLEMAS
+  ══════════════════════════════════════ -->
+  <section class="problems" id="problems" aria-label="Situações que exigem defesa imediata">
+    <div class="u-inner">
+      <div class="problems__header">
+        <div>
+          <div class="u-eyebrow reveal">
+            <div class="u-eyebrow__line"></div>
+            <span class="u-eyebrow__text">Situações Críticas</span>
+          </div>
+          <h2 class="u-section-title reveal" data-delay="1">
+            Situações Que Exigem<br>Defesa <em>Imediata</em>
+          </h2>
+        </div>
+        <p class="u-section-sub reveal" data-delay="2">
+          Cada hora sem representação jurídica adequada pode ser decisiva para o desfecho do seu caso.
+        </p>
+      </div>
+
+      <div class="problems__grid reveal" data-delay="1">
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <h3 class="prob-card__title">Prisão em Flagrante</h3>
+          <p class="prob-card__desc">Você ou alguém próximo foi preso? A atuação nas primeiras horas é determinante para a liberdade.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <path d="M16 2v4M8 2v4M3 10h18"/>
+          </svg>
+          <h3 class="prob-card__title">Audiência de Custódia</h3>
+          <p class="prob-card__desc">Representação estratégica na audiência que define liberdade ou prisão preventiva.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <h3 class="prob-card__title">Violência Doméstica</h3>
+          <p class="prob-card__desc">Acusações na Lei Maria da Penha demandam defesa técnica especializada e ação imediata.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <h3 class="prob-card__title">Tráfico de Drogas</h3>
+          <p class="prob-card__desc">Crimes de entorpecentes com penas severas exigem estratégia jurídica sólida e atuação rápida.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <rect x="2" y="3" width="20" height="14" rx="2"/>
+            <path d="M8 21h8m-4-4v4"/>
+          </svg>
+          <h3 class="prob-card__title">Crimes Digitais</h3>
+          <p class="prob-card__desc">Fraudes online, invasão de dispositivos e crimes cibernéticos com atuação técnica especializada.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 8v4l3 3"/>
+          </svg>
+          <h3 class="prob-card__title">Golpes e Fraudes</h3>
+          <p class="prob-card__desc">Estelionato, apropriação indébita e crimes contra o patrimônio — defesa técnica especializada.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          <h3 class="prob-card__title">Ameaças e Denúncias</h3>
+          <p class="prob-card__desc">Denúncias de ameaça ou calúnia que comprometem sua imagem, reputação e liberdade.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <h3 class="prob-card__title">Busca e Apreensão</h3>
+          <p class="prob-card__desc">Mandado de busca e apreensão em sua residência? Conheça seus direitos e como se proteger.</p>
+        </div>
+
+        <div class="prob-card">
+          <svg class="prob-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          <h3 class="prob-card__title">Investigações Criminais</h3>
+          <p class="prob-card__desc">Sob investigação policial ou do MP? Proteção jurídica estratégica desde o início do inquérito.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ③ IMPACTO EMOCIONAL
+  ══════════════════════════════════════ -->
+  <section class="impact" id="impact" aria-label="Impacto de uma decisão errada">
+    <div class="impact__glow-l" aria-hidden="true"></div>
+    <div class="impact__glow-r" aria-hidden="true"></div>
+    <div class="impact__deco" aria-hidden="true">DEFESA</div>
+
+    <div class="impact__inner">
+      <p class="impact__quote reveal">
+        "Uma decisão errada pode comprometer<br>
+        sua <strong>liberdade</strong>, sua reputação<br>
+        e seu futuro."
+      </p>
+      <div class="impact__divider reveal" data-delay="1"></div>
+      <p class="impact__sub reveal" data-delay="2">
+        Proteção jurídica especializada quando você mais precisa
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ④ COMO FUNCIONA
+  ══════════════════════════════════════ -->
+  <section class="how" id="como-funciona" aria-label="Como funciona o atendimento">
+    <div class="u-inner">
+      <div class="how__header">
+        <div>
+          <div class="u-eyebrow reveal">
+            <div class="u-eyebrow__line"></div>
+            <span class="u-eyebrow__text">Processo</span>
+          </div>
+          <h2 class="u-section-title reveal" data-delay="1">
+            Como Funciona o<br><em>Atendimento</em>
+          </h2>
+        </div>
+        <p class="u-section-sub reveal" data-delay="2">
+          Um processo simples, discreto e totalmente voltado para proteger você no menor tempo possível.
+        </p>
+      </div>
+
+      <div class="how__steps">
+
+        <div class="step reveal" data-delay="1">
+          <div class="step__diamond-wrap" aria-hidden="true">
+            <div class="step__diamond"></div>
+            <span class="step__num">01</span>
+          </div>
+          <h3 class="step__title">Contato Imediato</h3>
+          <p class="step__desc">Fale via WhatsApp agora. Disponibilidade total para situações de urgência, a qualquer hora.</p>
+        </div>
+
+        <div class="step reveal" data-delay="2">
+          <div class="step__diamond-wrap" aria-hidden="true">
+            <div class="step__diamond"></div>
+            <span class="step__num">02</span>
+          </div>
+          <h3 class="step__title">Análise do Caso</h3>
+          <p class="step__desc">Diagnóstico estratégico e completamente sigiloso da sua situação jurídica atual.</p>
+        </div>
+
+        <div class="step reveal" data-delay="3">
+          <div class="step__diamond-wrap" aria-hidden="true">
+            <div class="step__diamond"></div>
+            <span class="step__num">03</span>
+          </div>
+          <h3 class="step__title">Estratégia Definida</h3>
+          <p class="step__desc">Planejamento personalizado da melhor linha de defesa para o seu caso específico.</p>
+        </div>
+
+        <div class="step reveal" data-delay="4">
+          <div class="step__diamond-wrap" aria-hidden="true">
+            <div class="step__diamond"></div>
+            <span class="step__num">04</span>
+          </div>
+          <h3 class="step__title">Atuação Rápida</h3>
+          <p class="step__desc">Representação ágil, técnica e discreta com foco absoluto no melhor resultado.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ⑤ DIFERENCIAIS
+  ══════════════════════════════════════ -->
+  <section class="diff" id="diferenciais" aria-label="Diferenciais do escritório">
+    <div class="u-inner">
+      <div class="diff__header">
+        <div>
+          <div class="u-eyebrow reveal">
+            <div class="u-eyebrow__line"></div>
+            <span class="u-eyebrow__text">Diferenciais</span>
+          </div>
+          <h2 class="u-section-title reveal" data-delay="1">
+            Defesa Estratégica em<br><em>Momentos Críticos</em>
+          </h2>
+        </div>
+        <p class="u-section-sub reveal" data-delay="2">
+          Quando o que está em jogo é a sua liberdade, você merece o melhor.
+        </p>
+      </div>
+
+      <div class="diff__grid">
+
+        <div class="diff-card reveal" data-delay="1">
+          <div class="diff-card__glow" aria-hidden="true"></div>
+          <svg class="diff-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <h3 class="diff-card__title">Atendimento Rápido</h3>
+          <p class="diff-card__desc">Resposta imediata em situações de urgência. Total disponibilidade para casos que não podem esperar.</p>
+        </div>
+
+        <div class="diff-card reveal" data-delay="2">
+          <div class="diff-card__glow" aria-hidden="true"></div>
+          <svg class="diff-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+          </svg>
+          <h3 class="diff-card__title">Sigilo Absoluto</h3>
+          <p class="diff-card__desc">Confidencialidade total em todos os atendimentos. Sua privacidade e discrição são inegociáveis.</p>
+        </div>
+
+        <div class="diff-card reveal" data-delay="3">
+          <div class="diff-card__glow" aria-hidden="true"></div>
+          <svg class="diff-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <h3 class="diff-card__title">Estratégia Personalizada</h3>
+          <p class="diff-card__desc">Cada caso é único. Análise individualizada e construção de defesa sob medida para sua situação.</p>
+        </div>
+
+        <div class="diff-card reveal" data-delay="1">
+          <div class="diff-card__glow" aria-hidden="true"></div>
+          <svg class="diff-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+          <h3 class="diff-card__title">Atuação Humanizada</h3>
+          <p class="diff-card__desc">Compreensão genuína das implicações humanas do seu caso. Defesa técnica com sensibilidade.</p>
+        </div>
+
+        <div class="diff-card reveal" data-delay="2">
+          <div class="diff-card__glow" aria-hidden="true"></div>
+          <svg class="diff-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.05 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+          </svg>
+          <h3 class="diff-card__title">Acompanhamento Próximo</h3>
+          <p class="diff-card__desc">Você está sempre informado. Comunicação clara e constante em cada etapa do processo.</p>
+        </div>
+
+        <div class="diff-card reveal" data-delay="3">
+          <div class="diff-card__glow" aria-hidden="true"></div>
+          <svg class="diff-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          <h3 class="diff-card__title">Defesa Técnica Especializada</h3>
+          <p class="diff-card__desc">Especialização exclusiva em direito criminal. Conhecimento profundo para a melhor defesa possível.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ⑥ PROVA SOCIAL
+  ══════════════════════════════════════ -->
+  <section class="proof" id="depoimentos" aria-label="Depoimentos de clientes">
+    <div class="u-inner">
+      <div class="proof__header">
+        <div>
+          <div class="u-eyebrow reveal">
+            <div class="u-eyebrow__line"></div>
+            <span class="u-eyebrow__text">Confiança</span>
+          </div>
+          <h2 class="u-section-title reveal" data-delay="1">
+            O Que Dizem<br>Nossos <em>Clientes</em>
+          </h2>
+        </div>
+        <p class="u-section-sub reveal" data-delay="2">
+          A discrição é um compromisso. Os relatos são compartilhados com autorização e identidades preservadas.
+        </p>
+      </div>
+
+      <div class="proof__grid">
+
+        <div class="testi reveal" data-delay="1">
+          <div class="testi__stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="testi__text">
+            "Liguei sem saber nem o que perguntar. Fui atendido na hora, sem julgamento. Em menos de 24h já tinham tomado as providências. Não sei o que seria de mim sem esse apoio."
+          </p>
+          <div class="testi__author">
+            <span class="testi__dash">—</span>
+            <span class="testi__name">M. Almeida</span>
+            <span class="testi__sep">·</span>
+            <span class="testi__city">São Paulo</span>
+          </div>
+        </div>
+
+        <div class="testi reveal" data-delay="2">
+          <div class="testi__stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="testi__text">
+            "Passei pela situação mais difícil da minha vida. O atendimento foi discreto, humano e muito competente. Não precisei explicar tudo duas vezes. Senti que estavam do meu lado de verdade."
+          </p>
+          <div class="testi__author">
+            <span class="testi__dash">—</span>
+            <span class="testi__name">R. Santos</span>
+            <span class="testi__sep">·</span>
+            <span class="testi__city">Curitiba</span>
+          </div>
+        </div>
+
+        <div class="testi reveal" data-delay="3">
+          <div class="testi__stars" aria-label="5 estrelas">★★★★★</div>
+          <p class="testi__text">
+            "Recebi um mandado de busca e apreensão sem entender nada. Entrei em contato e em minutos já estava sendo orientado. A tranquilidade que senti naquele momento não tem preço."
+          </p>
+          <div class="testi__author">
+            <span class="testi__dash">—</span>
+            <span class="testi__name">C. Ferreira</span>
+            <span class="testi__sep">·</span>
+            <span class="testi__city">Londrina</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Metrics strip -->
+      <div class="proof__metrics reveal" data-delay="1">
+        <div class="metric">
+          <p class="metric__num" data-count="500" data-suffix="+">500+</p>
+          <p class="metric__label">Casos Atendidos</p>
+        </div>
+        <div class="metric">
+          <p class="metric__num" data-count="98" data-suffix="%">98%</p>
+          <p class="metric__label">Clientes Satisfeitos</p>
+        </div>
+        <div class="metric">
+          <p class="metric__num">24h</p>
+          <p class="metric__label">Disponibilidade</p>
+        </div>
+        <div class="metric">
+          <p class="metric__num" data-count="100" data-suffix="%">100%</p>
+          <p class="metric__label">Sigilo Garantido</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ⑦ CTA FINAL
+  ══════════════════════════════════════ -->
+  <section class="cta-final" id="contato" aria-label="Entre em contato agora">
+    <div class="cta-final__bg" aria-hidden="true"></div>
+    <div class="cta-final__stem" aria-hidden="true"></div>
+
+    <div class="cta-final__inner">
+
+      <div class="cta-final__eyebrow reveal" aria-hidden="true">
+        <div class="u-eyebrow__line"></div>
+        <span class="u-eyebrow__text">Aja Agora</span>
+        <div class="u-eyebrow__line"></div>
+      </div>
+
+      <h2 class="cta-final__headline reveal" data-delay="1">
+        Quanto Antes Você Agir,<br>
+        Maiores São as Chances<br>
+        de Uma Defesa <em>Forte.</em>
+      </h2>
+
+      <p class="cta-final__sub reveal" data-delay="2">
+        Fale agora com a equipe da Lian Matteo Advocacia.<br>
+        Atendimento imediato, sigiloso e especializado.
+      </p>
+
+      <div class="reveal" data-delay="3">
+        <a href="https://wa.me/554188760591" class="btn-wa btn-wa--cta" target="_blank" rel="noopener noreferrer">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.104 1.513 5.836L0 24l6.335-1.49C8.01 23.469 9.97 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.666-.513-5.194-1.41l-.37-.22-3.858.907.97-3.764-.242-.383A9.934 9.934 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+          </svg>
+          Falar com um Advogado Criminalista
+        </a>
+        <p class="cta-final__micro">Disponível agora · Sigilo total · Sem compromisso</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       ⑧ FOOTER
+  ══════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__main">
+
+      <div>
+        <p class="footer__brand-name">Lian Matteo<b>.</b></p>
+        <p class="footer__brand-desc">
+          Defesa criminal estratégica com sigilo, urgência e excelência técnica para proteger o que mais importa — sua liberdade.
+        </p>
+      </div>
+
+      <div>
+        <p class="footer__col-title">Contato</p>
+        <ul class="footer__links">
+          <li>
+            <a href="https://wa.me/554188760591" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.104 1.513 5.836L0 24l6.335-1.49C8.01 23.469 9.97 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.666-.513-5.194-1.41l-.37-.22-3.858.907.97-3.764-.242-.383A9.934 9.934 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+              </svg>
+              (41) 8876-0591
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer__col-title">Localização</p>
+        <ul class="footer__links">
+          <li>
+            <a href="#" aria-label="Localização do escritório">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              São Paulo, SP
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2025 Lian Matteo Advocacia. Todos os direitos reservados.</p>
+      <p class="footer__oab">OAB/PR 107.491 · Publicidade em conformidade com o Provimento 205/2021 do CFOAB.</p>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       SCRIPTS
+  ══════════════════════════════════════ -->
+  <script>
+    /* ── Nav scroll ── */
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ── Intersection reveal ── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    /* ── Counter animation ── */
+    function animateCounter(el, target, suffix) {
+      let start = 0;
+      const duration = 1400;
+      const startTime = performance.now();
+      const tick = (now) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out cubic
+        const ease = 1 - Math.pow(1 - progress, 3);
+        start = Math.round(ease * target);
+        el.textContent = start + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    const metricsSection = document.querySelector('.proof__metrics');
+    if (metricsSection) {
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.querySelectorAll('[data-count]').forEach(el => {
+              animateCounter(el, +el.dataset.count, el.dataset.suffix || '');
+            });
+            counterObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      counterObserver.observe(metricsSection);
+    }
+
+    /* ── Smooth anchor scrolling ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
