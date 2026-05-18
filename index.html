@@ -22,6 +22,8 @@
       --gold-light:    #D4AF60;
       --gold-dim:      rgba(184,151,58,0.12);
       --gold-glow:     rgba(184,151,58,0.06);
+      --red:           #C0392B;
+      --red-dim:       rgba(192,57,43,0.15);
       --white:         #F5F5F0;
       --white-70:      rgba(245,245,240,0.70);
       --white-40:      rgba(245,245,240,0.40);
@@ -65,6 +67,80 @@
     img { display:block; max-width:100%; }
     a { color:inherit; }
     button { cursor:pointer; border:none; background:none; }
+
+    /* ── Urgency Bar ── */
+    .urgency-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 300;
+      height: 38px;
+      background: #1a0a08;
+      border-bottom: 1px solid rgba(192,57,43,.4);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
+      color: var(--white-70);
+    }
+    .urgency-bar__dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+      animation: blink 1.4s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+    .urgency-bar__link {
+      color: #E8A090;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .urgency-bar__link:hover { color: #fff; }
+
+
+    /* ── Floating WhatsApp Button ── */
+    .float-wa {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 250;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.4rem;
+      background: var(--green-wa);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 50px;
+      box-shadow: 0 4px 24px rgba(37,211,102,.35);
+      transition: transform .2s, box-shadow .2s;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: float-in .5s ease forwards 2s;
+    }
+    @keyframes float-in { to{opacity:1; transform:translateY(0)} }
+    .float-wa:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 36px rgba(37,211,102,.45);
+    }
+    .float-wa__pulse {
+      position: absolute;
+      inset: 0;
+      border-radius: 50px;
+      border: 2px solid var(--green-wa);
+      animation: float-pulse 2s ease-out infinite 2s;
+      pointer-events: none;
+    }
+    @keyframes float-pulse {
+      0%{opacity:.7; transform:scale(1)}
+      100%{opacity:0; transform:scale(1.35)}
+    }
 
     /* ═══════════════════════════════════════════
        UTILITIES
@@ -145,7 +221,7 @@
     ═══════════════════════════════════════════ */
     .nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 38px; left: 0; right: 0;
       z-index: 200;
       padding: 1.75rem 3rem;
       display: flex;
@@ -214,21 +290,32 @@
       overflow: hidden;
     }
 
-    /* Cinematic dark gradient backdrop */
+    /* Photo backdrop */
+    .hero__photo {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center 30%;
+      filter: grayscale(40%) contrast(1.1);
+    }
+
+    /* Cinematic dark gradient backdrop — heavy overlay on the photo */
     .hero__backdrop {
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(160deg, #0A0908 0%, #12110E 38%, #0A0908 100%);
+        linear-gradient(to right, rgba(6,5,4,.97) 0%, rgba(6,5,4,.88) 45%, rgba(6,5,4,.55) 100%),
+        linear-gradient(to top, rgba(6,5,4,.7) 0%, transparent 50%);
     }
 
-    /* Atmospheric warm glow — like a single desk lamp */
+    /* Atmospheric warm glow */
     .hero__atmosphere {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 80% 70% at 72% 48%, rgba(184,151,58,.055) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(60,40,10,.18) 0%, transparent 55%);
+        radial-gradient(ellipse 60% 60% at 75% 50%, rgba(184,151,58,.05) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 70% at 8% 85%, rgba(40,20,10,.25) 0%, transparent 55%);
       pointer-events: none;
     }
 
@@ -1002,6 +1089,15 @@
 <body>
 
   <!-- ══════════════════════════════════════
+       URGENCY BAR
+  ══════════════════════════════════════ -->
+  <div class="urgency-bar" role="banner">
+    <div class="urgency-bar__dot" aria-hidden="true"></div>
+    Atendimento de emergência disponível agora —
+    <a href="https://wa.me/554188760591" class="urgency-bar__link" target="_blank" rel="noopener noreferrer">(41) 8876-0591</a>
+  </div>
+
+  <!-- ══════════════════════════════════════
        NAV
   ══════════════════════════════════════ -->
   <nav class="nav" id="nav" role="navigation" aria-label="Menu principal">
@@ -1021,6 +1117,7 @@
        ① HERO
   ══════════════════════════════════════ -->
   <section class="hero" id="hero" aria-label="Seção principal">
+    <div class="hero__photo" aria-hidden="true"></div>
     <div class="hero__backdrop" aria-hidden="true"></div>
     <div class="hero__atmosphere" aria-hidden="true"></div>
     <div class="hero__rule" aria-hidden="true"></div>
@@ -1033,11 +1130,11 @@
       </div>
 
       <h1 class="hero__headline">
-        Você Não Precisa<br>Enfrentar Isso<br><em>Sozinho.</em>
+        Preso. Investigado.<br>Acusado. E <em>Agora?</em>
       </h1>
 
       <p class="hero__sub">
-        Atendimento criminal estratégico e imediato para proteger sua liberdade, sua imagem e seus direitos — quando o tempo é o que mais importa.
+        Cada hora sem um advogado ao seu lado é uma hora que trabalha contra você. Sua liberdade, sua família e tudo que você construiu podem estar em risco — e o tempo não espera.
       </p>
 
       <div class="hero__cta-wrap">
@@ -1092,7 +1189,7 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
           <h3 class="prob-card__title">Prisão em Flagrante</h3>
-          <p class="prob-card__desc">Você ou alguém próximo foi preso? A atuação nas primeiras horas é determinante para a liberdade.</p>
+          <p class="prob-card__desc">O pânico bate. A família não sabe o que fazer. Cada minuto sem defesa é uma porta que se fecha — e talvez não abra mais.</p>
         </div>
 
         <div class="prob-card">
@@ -1101,7 +1198,7 @@
             <path d="M16 2v4M8 2v4M3 10h18"/>
           </svg>
           <h3 class="prob-card__title">Audiência de Custódia</h3>
-          <p class="prob-card__desc">Representação estratégica na audiência que define liberdade ou prisão preventiva.</p>
+          <p class="prob-card__desc">Nas próximas horas um juiz vai decidir se você vai para casa ou para a prisão preventiva. Sem defesa, as chances caem drasticamente.</p>
         </div>
 
         <div class="prob-card">
@@ -1110,7 +1207,7 @@
             <polyline points="9 22 9 12 15 12 15 22"/>
           </svg>
           <h3 class="prob-card__title">Violência Doméstica</h3>
-          <p class="prob-card__desc">Acusações na Lei Maria da Penha demandam defesa técnica especializada e ação imediata.</p>
+          <p class="prob-card__desc">Uma acusação falsa ou distorcida pode destruir seu emprego, sua família e sua reputação em questão de horas. Você não pode esperar.</p>
         </div>
 
         <div class="prob-card">
@@ -1120,7 +1217,7 @@
             <line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
           <h3 class="prob-card__title">Tráfico de Drogas</h3>
-          <p class="prob-card__desc">Crimes de entorpecentes com penas severas exigem estratégia jurídica sólida e atuação rápida.</p>
+          <p class="prob-card__desc">A pena mínima é de 5 anos. Sem uma defesa técnica que desmonte a acusação, você pode perder anos da sua vida por algo evitável.</p>
         </div>
 
         <div class="prob-card">
@@ -1129,7 +1226,7 @@
             <path d="M8 21h8m-4-4v4"/>
           </svg>
           <h3 class="prob-card__title">Crimes Digitais</h3>
-          <p class="prob-card__desc">Fraudes online, invasão de dispositivos e crimes cibernéticos com atuação técnica especializada.</p>
+          <p class="prob-card__desc">Acusado de fraude online ou invasão de sistemas? Sua reputação pode ser destruída antes mesmo do processo começar.</p>
         </div>
 
         <div class="prob-card">
@@ -1138,7 +1235,7 @@
             <path d="M12 8v4l3 3"/>
           </svg>
           <h3 class="prob-card__title">Golpes e Fraudes</h3>
-          <p class="prob-card__desc">Estelionato, apropriação indébita e crimes contra o patrimônio — defesa técnica especializada.</p>
+          <p class="prob-card__desc">O nome que levou anos para construir pode ser associado a um crime em segundos. A narrativa da acusação precisa ser contestada agora.</p>
         </div>
 
         <div class="prob-card">
@@ -1146,7 +1243,7 @@
             <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
           </svg>
           <h3 class="prob-card__title">Ameaças e Denúncias</h3>
-          <p class="prob-card__desc">Denúncias de ameaça ou calúnia que comprometem sua imagem, reputação e liberdade.</p>
+          <p class="prob-card__desc">Uma denúncia anônima ou por vingança pode iniciar um inquérito que muda sua vida — mesmo que você seja inocente.</p>
         </div>
 
         <div class="prob-card">
@@ -1154,7 +1251,7 @@
             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
           <h3 class="prob-card__title">Busca e Apreensão</h3>
-          <p class="prob-card__desc">Mandado de busca e apreensão em sua residência? Conheça seus direitos e como se proteger.</p>
+          <p class="prob-card__desc">Policiais na sua porta com um mandado. Sua família aterrorizada. Tudo que você tem sendo revistado. Você sabe seus direitos?</p>
         </div>
 
         <div class="prob-card">
@@ -1164,7 +1261,7 @@
             <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
           </svg>
           <h3 class="prob-card__title">Investigações Criminais</h3>
-          <p class="prob-card__desc">Sob investigação policial ou do MP? Proteção jurídica estratégica desde o início do inquérito.</p>
+          <p class="prob-card__desc">Saber que está sendo investigado e não fazer nada é o maior erro que alguém pode cometer. O inquérito se move — você precisa se mover primeiro.</p>
         </div>
 
       </div>
@@ -1181,13 +1278,12 @@
 
     <div class="impact__inner">
       <p class="impact__quote reveal">
-        "Uma decisão errada pode comprometer<br>
-        sua <strong>liberdade</strong>, sua reputação<br>
-        e seu futuro."
+        "O sistema não espera.<br>
+        A acusação já está<br>sendo <strong>construída contra você.</strong>"
       </p>
       <div class="impact__divider reveal" data-delay="1"></div>
       <p class="impact__sub reveal" data-delay="2">
-        Proteção jurídica especializada quando você mais precisa
+        Cada hora sem defesa é uma hora que trabalha contra você
       </p>
     </div>
   </section>
@@ -1438,14 +1534,14 @@
       </div>
 
       <h2 class="cta-final__headline reveal" data-delay="1">
-        Quanto Antes Você Agir,<br>
-        Maiores São as Chances<br>
-        de Uma Defesa <em>Forte.</em>
+        Não Deixe o Medo<br>
+        Paralisar Você.<br>
+        <em>Ligue Agora.</em>
       </h2>
 
       <p class="cta-final__sub reveal" data-delay="2">
-        Fale agora com a equipe da Lian Matteo Advocacia.<br>
-        Atendimento imediato, sigiloso e especializado.
+        Enquanto você espera, o outro lado avança.<br>
+        Um advogado ao seu lado agora pode mudar tudo.
       </p>
 
       <div class="reveal" data-delay="3">
@@ -1461,6 +1557,16 @@
 
     </div>
   </section>
+
+  <!-- Floating WhatsApp button -->
+  <a href="https://wa.me/554188760591" class="float-wa" target="_blank" rel="noopener noreferrer" aria-label="Falar pelo WhatsApp">
+    <div class="float-wa__pulse" aria-hidden="true"></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.551 4.104 1.513 5.836L0 24l6.335-1.49C8.01 23.469 9.97 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.666-.513-5.194-1.41l-.37-.22-3.858.907.97-3.764-.242-.383A9.934 9.934 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+    Falar Agora
+  </a>
 
   <!-- ══════════════════════════════════════
        ⑧ FOOTER
