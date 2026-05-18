@@ -290,14 +290,35 @@
       overflow: hidden;
     }
 
-    /* Photo backdrop */
+    /* Photo backdrop — crossfade entre algemas e viatura */
     .hero__photo {
       position: absolute;
       inset: 0;
-      background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80');
+    }
+    .hero__photo-layer {
+      position: absolute;
+      inset: 0;
       background-size: cover;
-      background-position: center 30%;
-      filter: grayscale(40%) contrast(1.1);
+      background-position: center center;
+      filter: grayscale(20%) contrast(1.2) brightness(0.65) saturate(1.1);
+    }
+    .hero__photo-layer--1 {
+      background-image: url('closeup-view-brown-wooden-mallet-judge.jpg');
+      background-position: center 45%;
+      animation: photo-crossfade 14s ease-in-out infinite;
+    }
+    .hero__photo-layer--2 {
+      background-image: url('https://images.unsplash.com/photo-1675430428387-376cabac44dc?auto=format&fit=crop&w=1920&q=80');
+      background-position: center center;
+      animation: photo-crossfade 14s ease-in-out infinite 7s;
+      opacity: 0;
+    }
+    @keyframes photo-crossfade {
+      0%   { opacity: 1; }
+      40%  { opacity: 1; }
+      50%  { opacity: 0; }
+      90%  { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     /* Cinematic dark gradient backdrop — heavy overlay on the photo */
@@ -309,13 +330,14 @@
         linear-gradient(to top, rgba(6,5,4,.7) 0%, transparent 50%);
     }
 
-    /* Atmospheric warm glow */
+    /* Atmospheric glow — police light tones */
     .hero__atmosphere {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 60% 60% at 75% 50%, rgba(184,151,58,.05) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 70% at 8% 85%, rgba(40,20,10,.25) 0%, transparent 55%);
+        radial-gradient(ellipse 55% 50% at 80% 30%, rgba(30,60,180,.12) 0%, transparent 60%),
+        radial-gradient(ellipse 45% 55% at 85% 70%, rgba(180,30,30,.10) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 5% 80%, rgba(10,10,30,.4) 0%, transparent 55%);
       pointer-events: none;
     }
 
@@ -1117,7 +1139,10 @@
        ① HERO
   ══════════════════════════════════════ -->
   <section class="hero" id="hero" aria-label="Seção principal">
-    <div class="hero__photo" aria-hidden="true"></div>
+    <div class="hero__photo" aria-hidden="true">
+      <div class="hero__photo-layer hero__photo-layer--1"></div>
+      <div class="hero__photo-layer hero__photo-layer--2"></div>
+    </div>
     <div class="hero__backdrop" aria-hidden="true"></div>
     <div class="hero__atmosphere" aria-hidden="true"></div>
     <div class="hero__rule" aria-hidden="true"></div>
@@ -1130,7 +1155,7 @@
       </div>
 
       <h1 class="hero__headline">
-        Está com um<br>Problema Criminal?<br><em>Podemos Te Ajudar.</em>
+        Está com um<br>Problema Criminal?<br><em>Podemos&nbsp;Te&nbsp;Ajudar.</em>
       </h1>
 
       <p class="hero__sub">
